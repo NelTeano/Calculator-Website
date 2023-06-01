@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Calculator</title>
+</head>
+<body>
+       
+    <div class="container">
+        <div class="header">
+            <input data-operand id="input" type="text" readonly>
+            <input data-result id="result" type="text" readonly>
+        </div>
+        <div class="numpads">
+            <button data-clear id="clear">AC</button>
+            <button data-delete>X</button>
+            <button data-operation>*</button>
+            <button data-operation>%</button>
+        </div>
+        <div class="numpads">
+            <button style="background-color: rgb(148, 148, 76);" data-numbers>7</button>
+            <button style="background-color: rgb(148, 148, 76);" data-numbers>8</button>
+            <button style="background-color: rgb(148, 148, 76);" data-numbers>9</button>
+           
+            <button data-operation>/</button>
+           
+        </div>
+        <div class="numpads">
+            <button style="background-color: rgb(148, 148, 76);" data-numbers>4</button>
+            <button style="background-color: rgb(148, 148, 76);" data-numbers>5</button>
+            <button style="background-color: rgb(148, 148, 76);" data-numbers>6</button>
+            <button data-operation>+</button>
+
+        </div>
+        <div class="numpads">
+            <button style="background-color: rgb(148, 148, 76);" data-numbers>1</button>
+            <button style="background-color: rgb(148, 148, 76);" data-numbers>2</button>
+            <button style="background-color: rgb(148, 148, 76);" data-numbers>3</button>
+            <button data-operation>-</button>
+            
+
+        </div>
+        <div class="numpads">
+            <button style="background-color: rgb(148, 148, 76);"  data-numbers id="btn-zero">0</button>
+            <button data-numbers>.</button>
+            <button data-equals>=</button>
+        </div>
+    </div>
+    <script>
+        const numbers = document.querySelectorAll("[data-numbers]")
+        const operations = document.querySelectorAll("[data-operation]")
+        const equalButton = document.querySelector("[data-equals]")     
+        const deleteButton = document.querySelector("[data-delete]")
+        const clearButton = document.querySelector("[data-clear]")
+        const Input = document.getElementById("input")
+        const result = document.querySelector("[data-result]")
+
+        clearButton.addEventListener("click", Clear)
+
+        function Clear(){
+            input.value = ''
+            result.value = ''
+        }
+
+       for(var i=0; i<numbers.length; i++){
+           numbers [i].addEventListener("click", AppendNumber)
+        }
+
+       function AppendNumber(){
+          input.value = input.value + this.innerText
+       }
+
+       for(var k=0; k<operations.length; k++){
+           operations [k].addEventListener("click", Operation)
+        }
+        function Operation(){
+          input.value = input.value + this.innerText
+       }
+
+        equalButton.addEventListener("click", Result)
+        function Result(){
+            try{
+                result.value=eval(Input.value)
+            }
+            catch(error){
+                    result.value = "Syntax Error"
+                    input.value = ''         
+            }
+        }
+        deleteButton.addEventListener("click", backspace)
+
+        function backspace(){
+            var value = Input.value;
+            input.value = value.substr(0, value.length - 1);
+        }
+    
+    </script>
+</body>
+</html>
